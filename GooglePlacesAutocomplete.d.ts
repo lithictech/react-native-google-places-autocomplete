@@ -383,6 +383,7 @@ interface GooglePlacesAutocompleteProps {
     region?: string;
     components?: string;
   };
+  initialValue?: string;
   isRowScrollable?: boolean;
   keyboardShouldPersistTaps?: 'never' | 'always' | 'handled';
   // use the ListEmptyComponent prop when no autocomplete results are found.
@@ -396,6 +397,7 @@ interface GooglePlacesAutocompleteProps {
   onFail?: (error?: any) => void;
   onNotFound?: () => void;
   onPress?: (data: GooglePlaceData, detail: GooglePlaceDetail | null) => void;
+  onTextChange?: () => void;
   onTimeout?: () => void;
   placeholder: string;
   predefinedPlaces?: Place[];

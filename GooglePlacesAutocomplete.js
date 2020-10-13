@@ -123,7 +123,11 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
     }
   };
 
-  const [stateText, setStateText] = useState('');
+  const [stateText, setStateTextInner] = useState(props.initialValue);
+  function setStateText(v) {
+    setStateTextInner(v);
+    props.onTextChange(v);
+  }
   const [dataSource, setDataSource] = useState(buildRowsFromResults([]));
   const [listViewDisplayed, setListViewDisplayed] = useState(
     props.listViewDisplayed === 'auto' ? false : props.listViewDisplayed,
@@ -812,6 +816,7 @@ GooglePlacesAutocomplete.propTypes = {
   GooglePlacesDetailsQuery: PropTypes.object,
   GooglePlacesSearchQuery: PropTypes.object,
   GoogleReverseGeocodingQuery: PropTypes.object,
+  initialValue: PropTypes.string,
   isRowScrollable: PropTypes.bool,
   keyboardShouldPersistTaps: PropTypes.oneOf(['never', 'always', 'handled']),
   listEmptyComponent: PropTypes.func,
@@ -823,6 +828,7 @@ GooglePlacesAutocomplete.propTypes = {
   onFail: PropTypes.func,
   onNotFound: PropTypes.func,
   onPress: PropTypes.func,
+  onTextChange: PropTypes.func,
   onTimeout: PropTypes.func,
   placeholder: PropTypes.string,
   predefinedPlaces: PropTypes.array,
@@ -861,6 +867,7 @@ GooglePlacesAutocomplete.defaultProps = {
     type: 'restaurant',
   },
   GoogleReverseGeocodingQuery: {},
+  initialValue: '',
   isRowScrollable: true,
   keyboardShouldPersistTaps: 'always',
   listUnderlayColor: '#c8c7cc',
@@ -871,6 +878,7 @@ GooglePlacesAutocomplete.defaultProps = {
   onFail: () => {},
   onNotFound: () => {},
   onPress: () => {},
+  onTextChange: () => {},
   onTimeout: () => console.warn('google places autocomplete: request timeout'),
   placeholder: '',
   predefinedPlaces: [],
